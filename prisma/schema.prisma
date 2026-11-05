@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            String          @id @default(cuid())
+  username      String          @default("Azure_Operative")
+  avatar        String          @default("/avatars/operative.svg")
+  balance       Float           @default(250.00)
+  level         Int             @default(12)
+  xp            Int             @default(3450)
+  totalOpened   Int             @default(0)
+  totalUpgraded Int             @default(0)
+  totalProfit   Float           @default(0)
+  clientSeed    String          @default("azure-cryo-seed-777")
+  serverSeed    String          @default("9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08")
+  nonce         Int             @default(1)
+  createdAt     DateTime        @default(now())
+  inventory     InventoryItem[]
+  openHistory   OpenHistory[]
+  upgrades      UpgradeHistory[]
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  subtitle    String
+  icon        String
+  accentColor String   @default("#00E5FF")
+  sortOrder   Int      @default(0)
+  cases       Case[]
+}
+
+model Case {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  name        String
+  subtitle    String        @default("Cryo Vault Container")
+  price       Float
+  oldPrice    Float?
+  imageUrl    String
+  accentColor String        @default("#00E5FF")
+  badge       String?       // HOT, NEW, LIMITED, VIP, FREE
+  openCount   Int           @default(0)
+  sortOrder   Int           @default(0)
+  categoryId  String
+  category    Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  items       CaseItem[]
+  openHistory OpenHistory[]
+}
+
+model Skin {
+  id             String          @id @default(cuid())
+  name           String          @unique // Full name: "AWP | Dragon Lore"
+  weapon         String          // "AWP"
+  skinName       String          // "Dragon Lore"
+  rarity         String          // MIL_SPEC, RESTRICTED, CLASSIFIED, COVERT, GOLD
+  basePrice      Float
+  imageUrl       String
+  collection     String          @default("Azure Collection")
+  canBeStatTrak  Boolean         @default(true)
+  caseItems      CaseItem[]
+  inventoryItems InventoryItem[]
+}
+
+model CaseItem {
+  id         String @id @default(cuid())
+  caseId     String
+  skinId     String
+  dropChance Float  // Percentage 0..100
+  weight     Int    // Relative weight for RNG
+  case       Case   @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  skin       Skin   @relation(fields: [skinId], references: [id], onDelete: Cascade)
+
+  @@unique([caseId, skinId])
+}
+
+model InventoryItem {
+  id           String   @id @default(cuid())
+  userId       String
+  skinId       String
+  wear         String   @default("FN") // FN, MW, FT, WW, BS
+  floatValue   Float    @default(0.015420)
+  isStatTrak   Boolean  @default(false)
+  price        Float
+  status       String   @default("IN_INVENTORY") // IN_INVENTORY, SOLD, UPGRADED_LOST, CONTRACT_USED
+  obtainedFrom String   @default("CASE")         // CASE, UPGRADE, CONTRACT, BONUS
+  caseName     String?
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skin         Skin     @relation(fields: [skinId], references: [id], onDelete: Cascade)
+}
+
+model OpenHistory {
+  id         String   @id @default(cuid())
+  userId     String
+  caseId     String
+  skinName   String
+  weapon     String
+  rarity     String
+  imageUrl   String
+  wear       String
+  floatValue Float
+  isStatTrak Boolean
+  price      Float
+  rollNumber Float
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  case       Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+}
+
+model UpgradeHistory {
+  id             String   @id @default(cuid())
+  userId         String
+  sourceValue    Float
+  targetSkinName String
+  targetWeapon   String
+  targetRarity   String
+  targetImageUrl String
+  targetPrice    Float
+  chance         Float
+  rollValue      Float
+  isSuccess      Boolean
+  createdAt      DateTime @default(now())
+
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

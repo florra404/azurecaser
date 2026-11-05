@@ -1,0 +1,53 @@
+[
+  {
+    "code": "VIPERR777",
+    "description": "Эксклюзивный ваучер создателя на $2,500",
+    "rewardType": "BALANCE",
+    "amount": 2500,
+    "maxUses": 999,
+    "usedBy": [],
+    "createdAt": "2026-11-04T22:00:31.426Z"
+  },
+  {
+    "code": "START250",
+    "description": "Подъёмный бонус для открытия кейсов ($250)",
+    "rewardType": "BALANCE",
+    "amount": 250,
+    "maxUses": 500,
+    "usedBy": [],
+    "createdAt": "2026-11-04T22:00:31.426Z"
+  },
+  {
+    "code": "DRAGON",
+    "description": "Секретный скин-ваучер: AWP | Dragon Lore (FN)",
+    "rewardType": "SKIN",
+    "amount": 0,
+    "skinName": "AWP | Dragon Lore",
+    "wear": "FN",
+    "isStatTrak": false,
+    "maxUses": 50,
+    "usedBy": [],
+    "createdAt": "2026-11-04T22:00:31.426Z"
+  },
+  {
+    "code": "KARAMBIT",
+    "description": "Ножевой ваучер: ★ Karambit | Doppler (FN)",
+    "rewardType": "SKIN",
+    "amount": 0,
+    "skinName": "★ Karambit | Doppler",
+    "wear": "FN",
+    "isStatTrak": true,
+    "maxUses": 50,
+    "usedBy": [],
+    "createdAt": "2026-11-04T22:00:31.426Z"
+  },
+  {
+    "code": "BOOSTXP",
+    "description": "Буст ранга: +3,500 XP (+10 уровней)",
+    "rewardType": "XP",
+    "amount": 3500,
+    "maxUses": 200,
+    "usedBy": [],
+    "createdAt": "2026-11-04T22:00:31.426Z"
+  }
+]

@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-carbon: #09090b;
+  --bg-surface: #111115;
+  --bg-elevated: #17171d;
+  --volt: #d4ff00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #09090b;
+  color: #fafafa;
+}
+
+body {
+  background-color: #09090b;
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(212, 255, 0, 0.06), transparent 45%),
+    radial-gradient(circle at 10% 30%, rgba(255, 255, 255, 0.02), transparent 35%),
+    linear-gradient(180deg, #09090b 0%, #0c0c10 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Subtle diagonal tech stripe pattern for cards */
+.bg-carbon-pattern {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes weaponHover {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-weapon-hover {
+  animation: weaponHover 4.5s ease-in-out infinite;
+}
+
+@keyframes shockwave {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+.animate-shockwave {
+  animation: shockwave 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
